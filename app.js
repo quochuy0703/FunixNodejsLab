@@ -6,14 +6,25 @@ const server = http.createServer((req, res) => {
   if (url === "/") {
     let page = `<html>
     <head><title>My first page</title></head>
-    <body><form action="/message" method="POST"><input type="text"><button type="submit" name="message">Send</button></form></body>
+    <body><form action="/message" method="POST"><input type="text" name="message"><button type="submit" >Send</button></form></body>
     </html>`;
     res.write(page);
     return res.end();
   }
   if (url === "/message" && method === "POST") {
-    fs.writeFileSync("message.txt", "DUMMY");
-    res.statusCode(302);
+    const body = [];
+    req.on("data", (chunk) => {
+      console.log(chunk);
+      body.push(chunk);
+    });
+    req.on("end", () => {
+      const parseBody = Buffer.concat(body).toString();
+      const message = parseBody.split("=")[1];
+
+      fs.writeFileSync("message.txt", message);
+    });
+
+    res.statusCode = 302;
     res.setHeader("Location", "/");
     return res.end();
   }
