@@ -9,8 +9,8 @@ const Router = express.Router();
 const adminData = require("./admin");
 
 Router.get("/", (req, res, next) => {
-  console.log("shop.js", adminData.products);
-  res.render("shop");
+  const products = adminData.products;
+  res.render("shop", { prods: products, docTitle: "shop" });
 });
 
 module.exports = Router;
