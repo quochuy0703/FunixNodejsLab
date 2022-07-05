@@ -1,9 +1,1 @@
-[
-  {
-    "title": "A book",
-    "imageUrl": "https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png",
-    "description": "This is a Book",
-    "price": "20",
-    "id": "12345"
-  }
-]
+[{"title":"A book","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","description":"This is a Book","price":"20","id":"12345"},{"title":"another product","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","description":"This is a another product","price":"20.99","id":"0.5474276830211522"}]
