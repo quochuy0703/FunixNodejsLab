@@ -3,6 +3,9 @@ const rootDir = require("../utils/path");
 const path = require("path");
 const fs = require("fs");
 
+const Cart = require("./cart");
+const { createBrotliCompress } = require("zlib");
+
 const p = path.join(rootDir, "data", "products.json");
 
 const getProductsFromFile = (callback) => {
@@ -47,9 +50,11 @@ module.exports = class Product {
 
   static deleteById(id) {
     getProductsFromFile((products) => {
+      const product = products.find((product) => product.id === id);
       const updatedProducts = products.filter((product) => product.id !== id);
       fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
         if (!err) {
+          Cart.deleteProduct(id, product.price);
         }
       });
     });
