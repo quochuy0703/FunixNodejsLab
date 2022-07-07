@@ -17,7 +17,7 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-db.execute("select * from products");
+db.execute("select * from products").then().catch();
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
