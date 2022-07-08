@@ -45,6 +45,7 @@ exports.postCart = (req, res, next) => {
   });
   res.redirect("/cart");
 };
+
 exports.getCart = (req, res, next) => {
   Cart.getProducts((cart) => {
     Product.fetchAll((products) => {
