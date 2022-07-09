@@ -3,9 +3,10 @@ const getDb = require("../utils/database").getDb;
 const mongodb = require("mongodb");
 
 class User {
-  constructor(username, email) {
+  constructor(username, email, cart) {
     this.username = username;
     this.email = email;
+    this.cart = cart;
   }
 
   save() {
@@ -13,6 +14,16 @@ class User {
     return db.collection("users").insertOne(this);
   }
 
+  addToCart(product) {
+    const updatedCart = { items: [{ ...product, quatity: 1 }] };
+    const db = getDb();
+    return db
+      .collection("users")
+      .updateOne(
+        { _id: new mongodb.ObjectId(this._id) },
+        { $set: { cart: updatedCart } }
+      );
+  }
   static findById(prodId) {
     const db = getDb();
     return db
