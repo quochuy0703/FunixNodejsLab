@@ -56,7 +56,7 @@ class User {
             ...product,
             quantity: this.cart.items.find(
               (item) => item.productId.toString() === product._id.toString()
-            ).quanyity,
+            ).quantity,
           };
         });
       });
