@@ -7,7 +7,7 @@ const Router = express.Router();
 Router.get("/", shopController.getIndex);
 
 Router.get("/products", shopController.getProducts);
-// Router.get("/products/:productId", shopController.getProduct);
+Router.get("/products/:productId", shopController.getProduct);
 // Router.get("/cart", shopController.getCart);
 // Router.post("/cart", shopController.postCart);
 // Router.post("/cart-delete-item", shopController.postCartDeleteProduct);
