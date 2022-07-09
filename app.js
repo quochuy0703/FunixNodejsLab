@@ -7,7 +7,8 @@ const errorControllers = require("./controllers/error");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
-const mongoConnect = require("./utils/database").mongoConnect;
+const mongoose = require("mongoose");
+
 const User = require("./models/user");
 
 const app = express();
@@ -32,6 +33,12 @@ app.use(shopRoutes);
 
 app.use("/", errorControllers.get404);
 
-mongoConnect(() => {
-  app.listen(3000);
-});
+mongoose
+  .connect(
+    "mongodb+srv://huymq:huymq123456@cluster0-gm4fb.mongodb.net/shop?retryWrites=true&w=majority"
+  )
+  .then((result) => {
+    console.log("connect database");
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
