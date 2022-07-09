@@ -32,7 +32,7 @@ exports.getIndex = (req, res, next) => {
       res.render("shop/product-list", {
         prods: products,
         pageTitle: "shop",
-        path: "/products",
+        path: "/",
       });
     })
     .catch((err) => console.log(err));
