@@ -13,6 +13,6 @@ Router.get("/products", adminController.getProducts);
 Router.post("/add-product", adminController.postAddProducts);
 Router.post("/edit-product", adminController.postEditProduct);
 Router.get("/edit-product/:productId", adminController.getEditProduct);
-// Router.post("/delete-product", adminController.postDeleteProduct);
+Router.post("/delete-product", adminController.postDeleteProduct);
 
 module.exports = Router;
