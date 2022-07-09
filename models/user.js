@@ -10,14 +10,16 @@ class User {
 
   save() {
     const db = getDb();
-    return db.collection("user").insertOne(this);
+    return db.collection("users").insertOne(this);
   }
 
   static findById(prodId) {
     const db = getDb();
     return db
-      .collection("user")
+      .collection("users")
       .find({ _id: new mongodb.ObjectId(prodId) })
       .next();
   }
 }
+
+module.exports = User;
