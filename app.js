@@ -5,7 +5,7 @@ const path = require("path");
 const errorControllers = require("./controllers/error");
 
 const adminRoutes = require("./routes/admin");
-// const shopRoutes = require("./routes/shop");
+const shopRoutes = require("./routes/shop");
 
 const mongoConnect = require("./utils/database").mongoConnect;
 
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/admin", adminRoutes);
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 app.use("/", errorControllers.get404);
 
