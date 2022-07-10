@@ -73,8 +73,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  req.user
-    .getOrders()
+  Order.find({ "user.userId": req.user._id })
     .then((orders) => {
       console.log(orders);
       res.render("shop/orders", {
@@ -91,7 +90,7 @@ exports.postOrder = (req, res, next) => {
     .populate("cart.items.productId")
     .then((user) => {
       const products = user.cart.items.map((item) => {
-        return { quantity: item.quantity, product: item.productId };
+        return { quantity: item.quantity, product: { ...item.productId } };
       });
       const order = new Order({
         user: {

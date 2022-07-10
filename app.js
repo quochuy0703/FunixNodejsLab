@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById("62c9a9ee835e1e681de51f58")
+  User.findById("62ca8b238988dbfbe025a116")
     .then((user) => {
       req.user = user;
       next();
@@ -38,7 +38,6 @@ mongoose
     "mongodb+srv://huymq:huymq123456@cluster0-gm4fb.mongodb.net/shop?retryWrites=true&w=majority"
   )
   // .then((result) => {
-
   //   const user = new User({
   //     name: "Max",
   //     email: "test@gmail.com",
