@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
+const mongoDBStore = require("connect-mongodb-session")(session);
 
 const errorControllers = require("./controllers/error");
 
@@ -13,7 +14,11 @@ const mongoose = require("mongoose");
 
 const User = require("./models/user");
 
+const MONGODB_URI =
+  "mongodb+srv://huymq:huymq123456@cluster0-gm4fb.mongodb.net/shop?retryWrites=true&w=majority";
+
 const app = express();
+const store = new mongoDBStore({ uri: MONGODB_URI, collection: "sessions" });
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -21,7 +26,12 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
-  session({ secret: "my secret", resave: false, saveUninitialized: false })
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
 );
 
 app.use((req, res, next) => {
@@ -40,9 +50,7 @@ app.use(authRoutes);
 app.use("/", errorControllers.get404);
 
 mongoose
-  .connect(
-    "mongodb+srv://huymq:huymq123456@cluster0-gm4fb.mongodb.net/shop?retryWrites=true&w=majority"
-  )
+  .connect(MONGODB_URI)
   // .then((result) => {
   //   const user = new User({
   //     name: "Max",
