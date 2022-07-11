@@ -37,6 +37,7 @@ exports.postLogin = (req, res, next) => {
             res.redirect("/");
           });
         }
+        req.flash("error", "Invalid email or password!");
         res.redirect("/login");
       });
     })
@@ -46,10 +47,17 @@ exports.postLogin = (req, res, next) => {
 exports.getSigup = (req, res, next) => {
   //   const isLoggedIn =
   //     req.get("Cookie").split(";")[0].trim().split("=")[1] === "true";
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
     isAuthenticated: false,
+    errorMessage: message,
   });
 };
 exports.postSignup = (req, res, next) => {
@@ -59,6 +67,7 @@ exports.postSignup = (req, res, next) => {
   User.findOne({ email: email })
     .then((userDoc) => {
       if (userDoc) {
+        req.flash("error", "Email exists already!");
         return res.redirect("/signup");
       }
 
