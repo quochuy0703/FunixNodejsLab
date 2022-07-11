@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+
+const csrf = require("csurf");
 const session = require("express-session");
 const mongoDBStore = require("connect-mongodb-session")(session);
 
@@ -15,6 +17,8 @@ const User = require("./models/user");
 
 const MONGODB_URI =
   "mongodb+srv://huymq:huymq123456@cluster0-gm4fb.mongodb.net/shop?retryWrites=true&w=majority";
+
+const csrfProtection = csrf();
 
 const app = express();
 const store = new mongoDBStore({ uri: MONGODB_URI, collection: "sessions" });
@@ -44,6 +48,8 @@ app.use((req, res, next) => {
     })
     .catch((err) => console.log(err));
 });
+
+app.use(csrfProtection);
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
