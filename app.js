@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+const flash = require("connect-flash");
+
 const csrf = require("csurf");
 const session = require("express-session");
 const mongoDBStore = require("connect-mongodb-session")(session);
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 });
 
 app.use(csrfProtection);
+app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
