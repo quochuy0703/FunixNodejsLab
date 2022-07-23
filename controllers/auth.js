@@ -65,6 +65,7 @@ exports.getSigup = (req, res, next) => {
       password: "",
       confirmPassword: "",
     },
+    validationErrors: [],
   });
 };
 exports.postSignup = (req, res, next) => {
@@ -83,6 +84,7 @@ exports.postSignup = (req, res, next) => {
         password: password,
         confirmPassword: confirmPassword,
       },
+      validationErrors: errors.array(),
     });
   }
 
