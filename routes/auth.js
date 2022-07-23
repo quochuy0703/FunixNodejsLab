@@ -8,7 +8,16 @@ const { check, body } = require("express-validator/check");
 const authController = require("../controllers/auth");
 
 Router.get("/login", authController.getLogin);
-Router.post("/login", authController.postLogin);
+Router.post(
+  "/login",
+  [
+    body("email").isEmail().withMessage("Please enter a valid email address."),
+    body("password", "Password has to be valid.")
+      .isLength({ min: 5 })
+      .isAlphanumeric(),
+  ],
+  authController.postLogin
+);
 Router.get("/signup", authController.getSigup);
 Router.post(
   "/signup",
