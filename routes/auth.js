@@ -11,10 +11,14 @@ Router.get("/login", authController.getLogin);
 Router.post(
   "/login",
   [
-    body("email").isEmail().withMessage("Please enter a valid email address."),
+    body("email")
+      .isEmail()
+      .withMessage("Please enter a valid email address.")
+      .normalizeEmail(),
     body("password", "Password has to be valid.")
       .isLength({ min: 5 })
-      .isAlphanumeric(),
+      .isAlphanumeric()
+      .trim(),
   ],
   authController.postLogin
 );
@@ -25,6 +29,7 @@ Router.post(
     check("email")
       .isEmail()
       .withMessage("Please enter a valid email!")
+      .normalizeEmail()
       .custom((value, { req }) => {
         // if (value === "test@test.com") {
         //   throw new Error("This email address if forbidden");
@@ -41,13 +46,17 @@ Router.post(
       "plase enter a password only number and text and at least 5 characters."
     )
       .isLength({ min: 5 })
-      .isAlphanumeric(),
-    body("confirmPassword").custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Password have to match.");
-      }
-      return true;
-    }),
+      .isAlphanumeric()
+      .trim(),
+
+    body("confirmPassword")
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Password have to match.");
+        }
+        return true;
+      })
+      .trim(),
   ],
   authController.postSignup
 );
