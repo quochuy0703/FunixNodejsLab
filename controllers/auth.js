@@ -60,6 +60,11 @@ exports.getSigup = (req, res, next) => {
     pageTitle: "Signup",
     isAuthenticated: false,
     errorMessage: message,
+    oldInput: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 };
 exports.postSignup = (req, res, next) => {
@@ -73,6 +78,11 @@ exports.postSignup = (req, res, next) => {
       pageTitle: "Signup",
       isAuthenticated: false,
       errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      },
     });
   }
 
