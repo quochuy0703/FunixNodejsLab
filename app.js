@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 const path = require("path");
 
 const flash = require("connect-flash");
@@ -29,6 +30,7 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({ dest: "images" }).single("image"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
