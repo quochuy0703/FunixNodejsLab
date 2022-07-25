@@ -41,7 +41,7 @@ exports.getProduct = (req, res, next) => {
 exports.getIndex = (req, res, next) => {
   Product.find()
     .then((products) => {
-      res.render("shop/product-list", {
+      res.render("shop/index", {
         prods: products,
         pageTitle: "shop",
         path: "/",
